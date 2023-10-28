@@ -32,7 +32,8 @@ ENV HOME /home/${NB_USER}
 RUN chmod 775 /docker-entrypoint.sh
 
 COPY ./java /java
-RUN chown -R ${NB_USER} /java && chmod 775 -R /java
+RUN mkdir /work
+RUN chown -R ${NB_USER} /java && chown -R ${NB_USER} /work && chmod 775 -R /java
 
 USER ${NB_USER}
 
@@ -54,7 +55,6 @@ RUN apt-get update -y && \
 
 USER ${NB_USER}
 
-
-RUN rm -rf ${HOME}/work
+RUN rm -rf ${HOME}/work && mkdir -p ${HOME}/work
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
