@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   notebook:
-    image: jupyter/schoolnotebookschempy
+    image: jupyter/schoolnotebookjava
     build: .
     environment:
      - SETUP_STATUS=testing
