@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: |
+        COMMIT_HASH=$(git rev-parse --short HEAD)
+        docker build . --file Dockerfile --tag schoolnotebookjava:${COMMIT_HASH}
+        docker build . --file Dockerfile --tag schoolnotebookjava:stable
