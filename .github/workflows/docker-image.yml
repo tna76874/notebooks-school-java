@@ -28,5 +28,6 @@ jobs:
 
           # Build image for stable branch
           if [ ${{ github.event_name }} == 'push' ] && [ ${{ github.ref }} == 'refs/heads/stable' ]; then
+            docker build . --file Dockerfile --tag schoolnotebookjava:${COMMIT_HASH}
             docker build . --file Dockerfile --tag schoolnotebookjava:stable
           fi
