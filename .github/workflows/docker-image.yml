@@ -26,7 +26,7 @@ jobs:
 
     - name: Build the Docker image
       run: |
-          COMMIT_HASH=$(git rev-parse --short HEAD)
+          COMMIT_HASH=$(git rev-parse HEAD)
           IMAGE_NAME="ghcr.io/tna76874/schoolnotebookjava"
 
           # Build image for master branch
