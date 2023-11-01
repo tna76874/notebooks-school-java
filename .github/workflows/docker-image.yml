@@ -23,6 +23,8 @@ jobs:
         registry: ghcr.io
         username: ${{github.actor}}
         password: ${{secrets.GITHUB_TOKEN}}
+      env:
+        SAVE_STATE_ACTION: false
 
     - name: Build the Docker image
       run: |
