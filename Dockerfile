@@ -4,7 +4,7 @@ USER root
 
 ENV SETUP_STATUS="production"
 ENV REPO_USER="tna76874"
-ENV REPO_NAME="notebooks-school"
+ENV REPO_NAME="notebooks-school-java"
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -q && apt-get install -y \
@@ -39,7 +39,7 @@ USER ${NB_USER}
 
 COPY ./requirements.txt . 
 
-RUN python3 -m pip install --no-cache-dir notebook jupyterlab jupyterhub &&\
+RUN python3 -m pip install --no-cache-dir notebook jupyterlab jupyterhub jupyterlab-link-share &&\
     pip install --no-cache-dir -r requirements.txt &&\
     pip install jupyter_contrib_nbextensions ipywidgets &&\
     jupyter contrib nbextension install --user &&\
@@ -51,7 +51,7 @@ USER root
 RUN cd /java && python install.py --replace
 
 RUN apt-get update -y && \
-    apt-get install -y openjdk-11-jdk
+    apt-get install -y openjdk-18-jdk
 
 USER ${NB_USER}
 

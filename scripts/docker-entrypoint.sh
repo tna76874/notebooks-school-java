@@ -5,8 +5,8 @@ RUN_ON_INIT="https://raw.githubusercontent.com/$REPO_USER/$REPO_NAME/master/scri
 RUN_ON_INIT_PATH="/usr/local/bin/run_on_init"
 
 get_latest_init_script() {
-    wget -O - "$RUN_ON_INIT" > "$RUN_ON_INIT_PATH" ||:
-    chmod 775 "$RUN_ON_INIT_PATH" ||:
+    wget -O - "$RUN_ON_INIT" > "$RUN_ON_INIT_PATH" 2>/dev/null ||:
+    chmod 775 "$RUN_ON_INIT_PATH" 2>/dev/null ||:
 }
 
 if [ "$SETUP_STATUS" = "production" ]; then
