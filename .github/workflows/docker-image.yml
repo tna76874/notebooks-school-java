@@ -16,9 +16,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
+    - name: 'Login to GitHub Container Registry'
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{github.actor}}
+        password: ${{secrets.GITHUB_TOKEN}}
+
     - name: Build the Docker image
       run: |
           COMMIT_HASH=$(git rev-parse --short HEAD)
+          IMAGE_NAME="ghcr.io/tna76874/schoolnotebookjava"
 
           # Build image for master branch
           if [ ${{ github.ref }} == 'refs/heads/master' ]; then
@@ -30,5 +39,7 @@ jobs:
             CHANNEL="stable"
           fi
 
-          docker build . --file Dockerfile --tag schoolnotebookjava:${COMMIT_HASH}
-          docker build . --file Dockerfile --tag schoolnotebookjava:${CHANNEL}
+          docker build . --file Dockerfile --tag ${IMAGE_NAME}:${COMMIT_HASH}
+          docker build . --file Dockerfile --tag ${IMAGE_NAME}:${CHANNEL}
+          docker push ${IMAGE_NAME}:${COMMIT_HASH}
+          docker push ${IMAGE_NAME}:${CHANNEL}
