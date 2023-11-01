@@ -27,6 +27,7 @@ jobs:
     - name: Build the Docker image
       run: |
           COMMIT_HASH=$(git rev-parse HEAD)
+          CURRENT_DATE=$(date +'%Y%m%d')
           IMAGE_NAME="ghcr.io/tna76874/schoolnotebookjava"
 
           # Build image for master branch
@@ -37,9 +38,12 @@ jobs:
           # Build image for stable branch
           if [ ${{ github.ref }} == 'refs/heads/stable' ]; then
             CHANNEL="stable"
+            docker build . --file Dockerfile_build --tag ${IMAGE_NAME}:${CHANNEL}-${CURRENT_DATE}
+            docker push ${IMAGE_NAME}:${CHANNEL}-${CURRENT_DATE}
           fi
 
           docker build . --file Dockerfile_build --tag ${IMAGE_NAME}:${COMMIT_HASH}
-          docker build . --file Dockerfile_build --tag ${IMAGE_NAME}:${CHANNEL}
           docker push ${IMAGE_NAME}:${COMMIT_HASH}
+
+          docker build . --file Dockerfile_build --tag ${IMAGE_NAME}:${CHANNEL}
           docker push ${IMAGE_NAME}:${CHANNEL}
