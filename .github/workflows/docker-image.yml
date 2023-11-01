@@ -39,7 +39,7 @@ jobs:
             CHANNEL="stable"
           fi
 
-          docker build . --file Dockerfile --tag ${IMAGE_NAME}:${COMMIT_HASH}
-          docker build . --file Dockerfile --tag ${IMAGE_NAME}:${CHANNEL}
+          docker build . --file Dockerfile_build --tag ${IMAGE_NAME}:${COMMIT_HASH}
+          docker build . --file Dockerfile_build --tag ${IMAGE_NAME}:${CHANNEL}
           docker push ${IMAGE_NAME}:${COMMIT_HASH}
           docker push ${IMAGE_NAME}:${CHANNEL}

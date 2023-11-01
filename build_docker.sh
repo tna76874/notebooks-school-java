@@ -20,5 +20,5 @@ else
   channel=$current_branch
 fi
 
-podman build -t  $REPO_URL/$REPO_USER/$IMAGENAME:$channel .
-podman build -t  $REPO_URL/$REPO_USER/$IMAGENAME:$GIT_HASH .
+podman build --file Dockerfile_build -t $REPO_URL/$REPO_USER/$IMAGENAME:$channel .
+podman build --file Dockerfile_build -t $REPO_URL/$REPO_USER/$IMAGENAME:$GIT_HASH .
