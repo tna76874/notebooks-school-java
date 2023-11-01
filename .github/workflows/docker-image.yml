@@ -21,13 +21,14 @@ jobs:
           COMMIT_HASH=$(git rev-parse --short HEAD)
 
           # Build image for master branch
-          if [ ${{ github.event_name }} == 'push' ] && [ ${{ github.ref }} == 'refs/heads/master' ]; then
-            docker build . --file Dockerfile --tag schoolnotebookjava:${COMMIT_HASH}
-            docker build . --file Dockerfile --tag schoolnotebookjava:latest
+          if [ ${{ github.ref }} == 'refs/heads/master' ]; then
+            CHANNEL="latest"
           fi
 
           # Build image for stable branch
-          if [ ${{ github.event_name }} == 'push' ] && [ ${{ github.ref }} == 'refs/heads/stable' ]; then
-            docker build . --file Dockerfile --tag schoolnotebookjava:${COMMIT_HASH}
-            docker build . --file Dockerfile --tag schoolnotebookjava:stable
+          if [ ${{ github.ref }} == 'refs/heads/stable' ]; then
+            CHANNEL="stable"
           fi
+
+          docker build . --file Dockerfile --tag schoolnotebookjava:${COMMIT_HASH}
+          docker build . --file Dockerfile --tag schoolnotebookjava:${CHANNEL}
