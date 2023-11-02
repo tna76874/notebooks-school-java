@@ -1,8 +1,10 @@
 version: "3.9"
 services:
   notebook:
-    image: jupyter/schoolnotebookjava
-    build: .
+    image: ghcr.io/tna76874/schoolnotebookjava
+    build:
+      context: .
+      dockerfile: Dockerfile_build
     environment:
      - SETUP_STATUS=testing
     volumes:
