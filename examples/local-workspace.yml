@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  notebook:
+    image: ghcr.io/tna76874/schoolnotebookjava:latest
+    ports:
+      - 8888:8888
+    container_name:   schoolnotebooksjavalocal
+    volumes:
+      - ./local-workspace:/home/jovyan/work
+    command: "jupyter notebook \
+      --NotebookApp.default_url=/lab/ \
+      --ip=0.0.0.0 \
+      --port=8888 \
+      --IdentityProvider.token='' \
+      --notebook-dir='/home/jovyan/work'"
